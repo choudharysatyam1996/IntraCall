@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">OpusTry</string>
+    <string name="error_login_enter_user_name">Please enter username.</string>
+    <string name="error_login_enter_password">Please enter password.</string>
+    <string name="error_login_enter_user_name_and_mailid">Please enter username and mailid.</string>
+    <string name="error_login_enter_mail">Please enter mailid.</string>
+    <string name="error_login_invalid_emailid">Please enter valid email id</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pin_content_desc">PIN input field</string>
+    <string name="pin_label_text">PIN</string>
+    <string name="verifyOtp_success">otp verified successfully</string>
+    <string name="verifyOtp_faulure">otp verified failed</string>
+    <string name="alreadyRegistered">EmailId already Registered</string>
+    <string name="Registration_failure">Registration failed due to Server Issue</string>
 </resources>

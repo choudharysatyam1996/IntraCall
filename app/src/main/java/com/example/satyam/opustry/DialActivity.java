@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -27,7 +31,7 @@ public class DialActivity extends AppCompatActivity implements ResponseHandler{
         setContentView(R.layout.activity_dial);
         initView();
         startCallService(this);
-        new GETRequest(this,REQ_TEST).execute("http://www.google.com");
+        //new GETRequest(this,REQ_TEST).execute("http://www.google.com");
     }
 
     private void initView() {
@@ -38,7 +42,7 @@ public class DialActivity extends AppCompatActivity implements ResponseHandler{
             public void onClick(View view) {
                 //Todo API CALL Get public key and ip addr of the peer
                 //Todo Add public key to intent
-                startCallActivity(dialIp.getText().toString());
+                startCallActivity(dialIp.getText().toString(),new byte[2]);
             }
         });
     }
@@ -48,7 +52,7 @@ public class DialActivity extends AppCompatActivity implements ResponseHandler{
         i.putExtra("KEY1", "Value to be used by the service");
         context.startService(i);
     }
-    private void startCallActivity(String socketAddr) {
+    private void startCallActivity(String socketAddr,byte[] pubkey) {
 
         Intent intent = new Intent(this,CallActivity.class);
         /*intent.putExtra("userId",userId);
@@ -59,9 +63,9 @@ public class DialActivity extends AppCompatActivity implements ResponseHandler{
         new SecureRandom().nextBytes(key);
         intent.putExtra("key",key);
         intent.putExtra("incoming",false);
-
         intent.putExtra("peer",socketAddr);
-
+        intent.putExtra("pubkey",pubkey);
+        //Base64.encodeToString(data, Base64.DEFAULT);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -78,6 +82,14 @@ public class DialActivity extends AppCompatActivity implements ResponseHandler{
             case REQ_IP_KEY:
             {
                 //TOdo Start Call activity by putting ip address and public key and own emailaddress in intent
+                try {
+                    JSONObject json = new JSONObject(response);
+                    String ipaddr = json.getString("ipaddress");
+                    String pubkey = json.getString("pubkey");
+                    startCallActivity(ipaddr,Base64.decode(pubkey, Base64.DEFAULT));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

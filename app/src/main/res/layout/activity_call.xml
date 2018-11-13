@@ -1,35 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_call"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CallActivity"
-    android:orientation="vertical">
+    android:background="@color/background_tab_pressed"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:paddingTop="10dp">
 
-    <Button
-        android:id="@+id/accept_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Accept"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:elevation="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="20dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/end_button"
-        android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_call_white_24dp" />
+
+            <TextView
+                style="@style/white_19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/call_status"
+                android:text="Calling " />
+
+            <TextView
+                android:id="@+id/ac_name_txt"
+                style="@style/white_19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="" />
+
+            <TextView
+                style="@style/white_19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" ..."
+                android:visibility="gone"/>
+        </LinearLayout>
+        <TextView
+            style="@style/white_14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ac_elapsed_txt"
+            android:text="" />
+
+    </LinearLayout>
+
+    <Chronometer android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stop" />
+        android:id="@+id/ac_chrono"
+        android:visibility="gone"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#ccc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/gray_text"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/user_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_unidentitied_user" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#ccc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/ac_incoming_lnlay"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/accept_btn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/green_circle"
+                android:padding="10dp"
+                android:src="@drawable/ic_call_white_24dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/end_button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/red_circle"
+            android:padding="10dp"
+            android:src="@drawable/ic_call_white_24dp" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/play_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play Recorded" />
+        android:text="Play Recorded"
+        android:visibility="gone"/>
 
-    <TextView
-        android:id="@+id/call_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
-        />
 </LinearLayout>

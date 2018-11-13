@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">@color/dark</color>
+    <color name="colorPrimaryDark">#192b34</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="red_light">#EE3A29</color>
+    <color name="white">#ffffff</color>
+    <!--<color name="theme_blue">#2798D5</color>-->
+    <color name="theme_blue">#bfe4f7</color>
+    <!--<color name="theme_blue">#2c3e50</color>-->
+
+    <!--<color name="theme_dark">#233F4D</color>-->
+    <color name="theme_dark">#192b34</color>
+    <color name="background_light">#fdfdfd</color>
+    <color name="gray_separator">#dedede</color>
+    <color name="black">#000000</color>
+    <color name="gray_text">#808080</color>
+    <color name="black_fall">#bf212121</color>
+    <color name="fab_color_2_muted">#a56ab0</color>
+    <!--<color name="toolbar_color">#2798D5</color>-->
+
+
+
+    <!--<color name="color_drawer_activity">#233F4D</color> &lt;!&ndash;616161&ndash;&gt;-->
+    <color name="gray_light">#F1F1F1</color>
+    <color name="coral_blue">#1DAEFA</color>
+    <color name="coral_blue_pressed">#1A9CE1</color>
+    <color name="dark_blue">#125D9D</color>
+    <color name="light_gray">#ABBAC2</color>
+    <color name="destination_red">#B71C1C</color>
+    <color name="holo_blue">#33B5E5</color>
+    <color name="button_text_green">#4cae50</color>
+    <color name="button_text_red">#f44336</color>
+
+
+    <color name="viewpager_background">#FAFAFA</color>
+    <color name="transparent">#00000000</color>
+    <color name="whatsapp">#006A4E</color>
+
+    <color name="registration_screens_buttons_text_color">#FFFFFF</color>
+    <color name="gray">@android:color/darker_gray</color>
+    <color name="blue_light">@android:color/holo_blue_light</color>
+    <color name="background_tab_pressed">#6633B5E5</color>
+
+
+    <color name="accent_color">@color/theme_dark</color>
+    <color name="statusBarColor">@color/black</color>
+    <color name="navigationBarColor">@android:color/black</color>
+    <color name="drawerArrowColor">@android:color/white</color>
+
+
+    <color name="list_group_title">#808080</color>
+    <color name="list_item_title">#AAAAAA</color>
+
+    <color name="group_divider_color">#80CBC4</color>
+
+
+    <color name="lime">#E6EE9C</color>
+
+    <color name="grey">#B0BEC5</color>
+    <color name="purple">#B39DDB</color>
+    <color name="pink">#F48FB1</color>
+
+    <color name="officeToHomeCardColor">#eafafc</color>
+    <color name="homeToOfficeCardColor">#fcfae5</color>
+    <color name="toolbar_color">#dbf1f4</color>
+    <color name="statusBar_color">#0f181d</color>     <!-- statusbar color if android is not kitkat-->
+    <color name="dark1">#093146</color>
+    <color name="dark">#38728f</color>
+    <color name="list_item_textColor">#96daed</color>
+    <color name="CallBackground">#0d6e14</color>
+    <color name="CallStatusBar">#08480d</color>
 </resources>

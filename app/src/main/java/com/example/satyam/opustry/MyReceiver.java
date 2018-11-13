@@ -3,6 +3,7 @@ package com.example.satyam.opustry;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.format.Formatter;
@@ -25,7 +26,7 @@ public class MyReceiver extends BroadcastReceiver {
 
     private void updateIpAddress(Context ctx) {
         try {
-            GETRequest.callApi(Config.SERVER_IP_ADDRESS+getWifiIpaddressByWifiManager(ctx));
+            GETRequest.callApi(Config.SERVER_IP_ADDRESS+Config.API_SAVE_IP+"?mailid="+Config.getEmail(ctx)+"&ipaddress"+getWifiIpaddressByWifiManager(ctx));
         } catch (IOException e) {
             e.printStackTrace();
         }

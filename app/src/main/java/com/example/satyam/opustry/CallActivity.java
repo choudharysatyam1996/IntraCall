@@ -7,6 +7,9 @@ import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.media.MediaRecorder;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -16,9 +19,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.score.rahasak.utils.OpusDecoder;
 import com.score.rahasak.utils.OpusEncoder;
@@ -51,11 +58,14 @@ public class CallActivity extends AppCompatActivity {
     private DatagramSocket socket;
     private String remoteAddress;
     private byte[] key;
+    private byte[] pubkey;
     private InetAddress ip;
     private String path_dec = "/sdcard/opus_dec.pcm";
     private String path_enc = "/sdcard/opus_enc.pcm";
 
-    private Button acceptBtn, endBtn, mplayRecorded;
+    private ImageView acceptBtn, endBtn;
+    private LinearLayout aceept_container;
+    private Button mplayRecorded;
     private TextView callStatus;
     private SenderThread mSenderThread;
     private ReceiverThread mReceiverThread;
@@ -63,6 +73,9 @@ public class CallActivity extends AppCompatActivity {
     private FileOutputStream os = null, os2 = null;
     private boolean callRecording = false;
     private Handler mHandler = new Handler();
+
+    private Uri ringtone;
+    private Ringtone r;
 
     //Audio Track Config
     // Sample rate must be one supported by Opus.
@@ -122,6 +135,7 @@ public class CallActivity extends AppCompatActivity {
         setWindowParams();
         initPeerInfo();
         //configForTesting();
+        setupRinger();
         setContentView(R.layout.activity_call);
         initView();
         Log.d("LifeCycle : ", "Oncreate");
@@ -140,10 +154,16 @@ public class CallActivity extends AppCompatActivity {
         }
         else
         {
+            r.play();
             setupIncomingView();
         }
         start();
         //startCallRecording();
+    }
+
+    private void setupRinger() {
+        ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+        r = RingtoneManager.getRingtone(getApplicationContext(), ringtone);
     }
 
     @Override
@@ -161,6 +181,9 @@ public class CallActivity extends AppCompatActivity {
     }
 
     private void setWindowParams() {
+        //Remove title bar
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                 WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
@@ -170,6 +193,7 @@ public class CallActivity extends AppCompatActivity {
     private void initPeerInfo() {
         try {
             key = getIntent().getExtras().getByteArray("key");
+            pubkey = getIntent().getExtras().getByteArray("pubkey");
             remoteAddress = getIntent().getExtras().getString("peer");
             ip = InetAddress.getByName(remoteAddress);
             INCOMING = getIntent().getBooleanExtra("incoming", false);
@@ -197,7 +221,6 @@ public class CallActivity extends AppCompatActivity {
                     Socket socket = new Socket();
                     socket.connect(new InetSocketAddress(ip, CallService.CONTROL_PORT), 5000);
                     OutputStream sendStream = socket.getOutputStream();
-                    String random = RSAEncryption.getSaltString(16);
                     //String msgSnd = "Please Come In";
                     //byte[] sndBytes = msgSnd.getBytes();
                     //TOdo send myEmail
@@ -241,6 +264,7 @@ public class CallActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        aceept_container = findViewById(R.id.ac_incoming_lnlay);
         acceptBtn = findViewById(R.id.accept_btn);
         endBtn = findViewById(R.id.end_button);
         mplayRecorded = findViewById(R.id.play_button);
@@ -250,12 +274,14 @@ public class CallActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CALL_ESTABLISHED = true;
                 Log.v(TAG, " Call Accepted");
-                acceptBtn.setVisibility(View.GONE);
+                aceept_container.setVisibility(View.GONE);
+                setupCallAcceptedView();
             }
         });
         endBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                onBackPressed();
                 terminateCall();
             }
         });
@@ -269,10 +295,12 @@ public class CallActivity extends AppCompatActivity {
 
     private void setupIncomingView() {
         callStatus.setText(remoteAddress + " Calling");
+
     }
 
     private void setupOutgoingView() {
-        acceptBtn.setVisibility(View.GONE);
+        //acceptBtn.setVisibility(View.GONE);
+        aceept_container.setVisibility(View.GONE);
         callStatus.setText("Calling " + remoteAddress);
     }
 
@@ -317,7 +345,7 @@ public class CallActivity extends AppCompatActivity {
     }
 
     private void end_call() {
-
+        r.stop();
         CALLING = false;
         CALL_ESTABLISHED = false;
         try {
@@ -448,7 +476,20 @@ public class CallActivity extends AppCompatActivity {
                     if (dataPacket.type == VOICE_DATA) {
                         //  if VOICE_DATA or CALL_ACCEPTED Packet received set CALL_ESTABLISHED = true to exit this loop
                         CALL_ESTABLISHED = true;
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                setupCallAcceptedView();
+                                r.stop();
+                            }
+                        });
                     } else if (dataPacket.type == CALL_ABORT) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(CallActivity.this,"User is Busy",Toast.LENGTH_LONG).show();
+                            }
+                        });
                         terminateCall();
                     }
                 } catch (IOException e) {
@@ -496,8 +537,13 @@ public class CallActivity extends AppCompatActivity {
         }
     }
 
+    private void setupCallAcceptedView() {
+        callStatus.setText("Connected");
+    }
+
     private void terminateCall() {
         Log.d(TAG, "Terminating call");
+        r.stop();
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -1,0 +1,177 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:weightSum="1757">
+
+
+    <ImageView
+        android:id="@+id/aliquot_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_weight="710"
+        android:contentDescription="@null"
+        android:padding="40dp"
+        android:src="@drawable/logo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="120"
+        android:background="@android:color/transparent"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/app_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OTP has bees sent to your registered mail id.please verify it"
+            tools:ignore="SpUsage"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center"/>
+    </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="40" />
+    <LinearLayout
+        android:orientation="vertical"
+        style="@style/CustomEditText.Form"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_weight="150"
+        android:fontFamily="sans-serif"
+        android:maxLines="1"
+        android:padding="0dp"
+        >
+
+        <EditText
+            android:id="@+id/edittxtMailId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableLeft="@drawable/icon_mail_left_side"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="mailId"
+            android:inputType="textEmailAddress" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="40" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        style="@style/CustomEditText.Form"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_weight="150"
+        android:fontFamily="sans-serif"
+        android:padding="0dp">
+
+        <EditText
+            android:id="@+id/edittxtUserName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/icon_username_left_side"
+            android:fontFamily="sans-serif"
+            android:hint="OTP"
+            android:inputType="text"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:textCursorDrawable="@null"
+            tools:ignore="RtlHardcoded" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="40" />
+
+
+    <LinearLayout
+        android:id="@+id/forgot_password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="110"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            tools:ignore="NestedWeights" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="80">
+
+            <TextView
+                android:id="@+id/btnForgotOTP"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:gravity="top"
+                android:text="Resend OTP"
+                android:textAllCaps="false"
+
+                tools:ignore="SpUsage" />
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnVerifyOtp"
+        style="@style/CustomEditText.CustomButton"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="0dp"
+        android:layout_weight="140"
+        android:onClick="onClick"
+        android:text="Verify OTP" />
+
+
+    <LinearLayout
+        android:id="@+id/create_an_account_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="277"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:weightSum="270">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="60"
+            tools:ignore="NestedWeights" />
+
+    </LinearLayout>
+</LinearLayout>
